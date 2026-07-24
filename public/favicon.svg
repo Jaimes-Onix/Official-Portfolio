@@ -1,6 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#0A0A0B"/>
-  <text x="50%" y="50%" dy="0.04em" text-anchor="middle" dominant-baseline="central"
-        font-family="'Sora','Arial',sans-serif" font-weight="800" font-size="26"
-        letter-spacing="-1.5" fill="#FFFFFF">JEC</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Jaimes Edward Cabante">
+  <defs>
+    <linearGradient id="jtile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#202022"/>
+      <stop offset="1" stop-color="#050506"/>
+    </linearGradient>
+    <linearGradient id="jmark" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#ff8a57"/>
+      <stop offset="0.55" stop-color="#f0530c"/>
+      <stop offset="1" stop-color="#d5440a"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#jtile)"/>
+  <rect x="0.6" y="0.6" width="62.8" height="62.8" rx="14.4" fill="none" stroke="#ffffff" stroke-opacity="0.09" stroke-width="1.2"/>
+  <!-- bold J monogram -->
+  <path d="M42 17 v17 a13 13 0 0 1 -26 0" fill="none" stroke="url(#jmark)" stroke-width="8.5" stroke-linecap="round"/>
+  <path d="M30 17 H48" fill="none" stroke="url(#jmark)" stroke-width="8.5" stroke-linecap="round"/>
+  <!-- accent spark on the top-bar terminal -->
+  <circle cx="30" cy="17" r="2" fill="#ffffff" opacity="0.92"/>
 </svg>

@@ -15,6 +15,7 @@ import ChatBot from './ChatBot.jsx'
 
 const RESUME = '/resume.pdf'
 const RESUME_FILENAME = 'Jaimes-Cabante-Resume.pdf'
+const EMAIL = 'jaimesedwardcabante3@gmail.com'
 const EASE = [0.22, 1, 0.36, 1]
 const AUTOMATIONS_ROUTE = '#/automations'
 
@@ -1596,7 +1597,59 @@ function Preloader({ onDone }) {
   )
 }
 
-/* ---------- Site footer (shared across pages; Arca stays the final element) ---------- */
+/* ---------- Social icons (inline SVG, match SunIcon/MoonIcon style) ---------- */
+const LinkedInIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 8.98h4V21H3zM9.5 8.98h3.83v1.64h.05c.53-.95 1.84-1.96 3.79-1.96 4.05 0 4.8 2.5 4.8 5.75V21h-4v-4.94c0-1.18-.02-2.69-1.86-2.69-1.87 0-2.16 1.29-2.16 2.6V21h-4z" />
+  </svg>
+)
+const GitHubIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.85 9.73.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.79.62-3.38-1.37-3.38-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1.01.07 1.54 1.06 1.54 1.06.9 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2z" />
+  </svg>
+)
+const TwitterIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M18.9 2.75h3.3l-7.2 8.23L23.5 21.25h-6.63l-5.2-6.79-5.94 6.79H2.42l7.71-8.81L2 2.75h6.8l4.69 6.2zm-1.16 16.5h1.83L7.35 4.63H5.4z" />
+  </svg>
+)
+
+/* ---------- Footer line icons (stroke style, match AboutIcon) ---------- */
+const FOOT_ICON = {
+  viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor',
+  strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': true,
+}
+const PinIcon = () => (<svg {...FOOT_ICON}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="2.8" /></svg>)
+const MailIcon = () => (<svg {...FOOT_ICON}><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3.5 7 8.5 6 8.5-6" /></svg>)
+const BoltIcon = () => (<svg {...FOOT_ICON}><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" /></svg>)
+const MonitorIcon = () => (<svg {...FOOT_ICON}><rect x="3" y="4" width="18" height="12" rx="2" /><path d="M8 20h8M12 16v4" /></svg>)
+const DatabaseIcon = () => (<svg {...FOOT_ICON}><ellipse cx="12" cy="5" rx="8" ry="3" /><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" /></svg>)
+const ChevronIcon = () => (<svg {...FOOT_ICON}><path d="m9 6 6 6-6 6" /></svg>)
+const PlaneIcon = () => (<svg {...FOOT_ICON}><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z" /></svg>)
+const FooterMark = () => (
+  <svg className="footer__logo" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+    <path d="M7 8h15L11 20h9L8 34l4.5-11H6z" fill="var(--accent)" />
+    <path d="M20 8h13L21.5 20H30L17 34l4-10h-6z" fill="var(--ink)" opacity="0.88" />
+  </svg>
+)
+const FooterWaves = () => (
+  <svg className="footer__waves" viewBox="0 0 640 300" fill="none"
+    preserveAspectRatio="xMaxYMax slice" aria-hidden="true">
+    {Array.from({ length: 11 }).map((_, i) => (
+      <path
+        key={i}
+        d={`M-20 ${300 - i * 13} C 150 ${292 - i * 17}, 330 ${248 - i * 23}, 500 ${150 - i * 20} S 690 ${44 - i * 12}, 720 ${8 - i * 9}`}
+        stroke="var(--accent)"
+        strokeWidth="1"
+        opacity={0.05 + i * 0.022}
+      />
+    ))}
+    <circle cx="512" cy="120" r="2.4" fill="var(--accent)" />
+    <circle cx="588" cy="70" r="1.8" fill="var(--accent)" />
+  </svg>
+)
+
+/* ---------- Site footer (shared across pages) ---------- */
 function SiteFooter({ onResume }) {
   return (
     <footer className="footer">
@@ -1613,39 +1666,133 @@ function SiteFooter({ onResume }) {
           </div>
         </Reveal>
 
-        <div className="footer__cols">
+        <div className="footer__grid">
+          <FooterWaves />
+
+          {/* Brand */}
           <div className="footer__brand">
-            <div className="footer__name">Jaimes Edward Cabante</div>
+            <FooterMark />
+            <h3 className="footer__name">Jaimes Edward <span className="accent">Cabante</span></h3>
+            <div className="footer__role">Automation &amp; Website Developer</div>
             <p className="footer__tagline">
-              Automation &amp; Website Developer based in Cebu, PH. I build modern websites
-              and automate the work behind them.
+              I build modern websites and automation systems that streamline
+              workflows and help businesses grow smarter.
             </p>
+            <div className="footer__contact">
+              <span className="footer__contact-row">
+                <span className="footer__contact-ic"><PinIcon /></span>
+                Cebu, Philippines
+              </span>
+              <a className="footer__contact-row footer__contact-link" href={`mailto:${EMAIL}`}>
+                <span className="footer__contact-ic"><MailIcon /></span>
+                {EMAIL}
+              </a>
+            </div>
+            <div className="footer__socials">
+              <a
+                className="footer__social"
+                href="https://www.linkedin.com/in/jaimes-edward-cabante-8aab02338/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Jaimes on LinkedIn"
+              >
+                <LinkedInIcon />
+              </a>
+              <a
+                className="footer__social"
+                href="https://github.com/Jaimes-Oni"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Jaimes on GitHub"
+              >
+                <GitHubIcon />
+              </a>
+              {/* Placeholder — swap href for the real X/Twitter profile when available */}
+              <a
+                className="footer__social footer__social--placeholder"
+                href="#"
+                onClick={(e) => e.preventDefault()}
+                aria-disabled="true"
+                title="Coming soon"
+                aria-label="Twitter — coming soon"
+              >
+                <TwitterIcon />
+              </a>
+            </div>
           </div>
-          <nav className="footer__nav" aria-label="Menu">
-            <span className="footer__nav-label">Menu</span>
-            <a href="#top">Home</a>
-            <a href="#work">Work</a>
-            <a href="#about">About</a>
-          </nav>
-          <nav className="footer__nav" aria-label="More">
-            <span className="footer__nav-label">More</span>
-            <a href="#skills">Skills</a>
-            <a href={AUTOMATIONS_ROUTE}>Automations</a>
-            <a href={RESUME} onClick={(e) => { e.preventDefault(); onResume() }} target="_blank" rel="noopener noreferrer" download={RESUME_FILENAME}>Résumé</a>
-          </nav>
+
+          {/* What I do */}
+          <div className="footer__col">
+            <div className="footer__coltitle"><span className="footer__coldot" aria-hidden="true" />What I Do</div>
+            <ul className="footer__services">
+              <li className="footer__service">
+                <span className="footer__service-ic"><BoltIcon /></span>
+                <div className="footer__service-body">
+                  <div className="footer__service-title">Automation</div>
+                  <p>I automate repetitive tasks and business processes to save time and reduce errors.</p>
+                </div>
+              </li>
+              <li className="footer__service">
+                <span className="footer__service-ic"><MonitorIcon /></span>
+                <div className="footer__service-body">
+                  <div className="footer__service-title">Web Development</div>
+                  <p>I build responsive, fast, and modern websites using the latest technologies.</p>
+                </div>
+              </li>
+              <li className="footer__service">
+                <span className="footer__service-ic"><DatabaseIcon /></span>
+                <div className="footer__service-body">
+                  <div className="footer__service-title">AI Integration</div>
+                  <p>I integrate AI tools and APIs to create intelligent solutions that solve real problems.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          {/* Navigation */}
+          <div className="footer__col">
+            <div className="footer__coltitle"><span className="footer__coldot" aria-hidden="true" />Navigation</div>
+            <nav className="footer__links" aria-label="Footer navigation">
+              <a href="#top"><ChevronIcon />Home</a>
+              <a href="#about"><ChevronIcon />About</a>
+              <a href="#work"><ChevronIcon />Projects</a>
+              <a href="#skills"><ChevronIcon />Skills</a>
+              <a href={AUTOMATIONS_ROUTE}><ChevronIcon />Automations</a>
+              <a href={`mailto:${EMAIL}`}><ChevronIcon />Contact</a>
+            </nav>
+          </div>
+
+          {/* Let's work together */}
+          <div className="footer__col">
+            <div className="footer__coltitle"><span className="footer__coldot" aria-hidden="true" />Let&apos;s Work Together</div>
+            <div className="footer__work">
+              <div className="footer__work-top">
+                <span className="footer__work-ic"><PlaneIcon /></span>
+                <div>
+                  <div className="footer__work-title">Open for Opportunities</div>
+                  <p>I&apos;m available for freelance projects and full-time opportunities.</p>
+                </div>
+              </div>
+              <a className="footer__work-link" href={`mailto:${EMAIL}`}>
+                <span aria-hidden="true">→</span> Let&apos;s build something great together.
+              </a>
+            </div>
+          </div>
         </div>
 
-        <div className="footer__legal">
-          <span>© 2026 Jaimes Edward Cabante</span>
-          <span>Automation &amp; Website Developer · Cebu, PH</span>
+        <div className="footer__bar">
+          <span className="footer__copy">© 2026 Jaimes Cabante. All rights reserved.</span>
+          <div className="footer__meta">
+            <span className="footer__status">
+              <span className="footer__status-dot" aria-hidden="true" />
+              All systems operational
+            </span>
+            <a className="footer__totop" href="#top">Back to top <span aria-hidden="true">↑</span></a>
+          </div>
         </div>
-
-        {/* Arca attribution — REQUIRED, final element on the page, links to arca.ph */}
-        <a className="footer__arca" href="https://arca.ph" target="_blank" rel="noopener noreferrer" aria-label="Made for Arca.ph">
-          <img src="/images/arca-logo.png" alt="Arca" />
-          <span>Made for Arca.ph</span>
-        </a>
       </div>
+
+      <div className="footer__wordmark" aria-hidden="true">Jaimes</div>
     </footer>
   )
 }
@@ -1706,7 +1853,6 @@ function AutomationsPage({ platform }) {
         </section>
       </main>
 
-      {/* Chat assistant kept before the footer so Arca stays the final element. */}
       <ChatBot />
       <SiteFooter onResume={() => setResumeOpen(true)} />
 
