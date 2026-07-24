@@ -16,6 +16,10 @@ import ChatBot from './ChatBot.jsx'
 const RESUME = '/resume.pdf'
 const RESUME_FILENAME = 'Jaimes-Cabante-Resume.pdf'
 const EMAIL = 'jaimesedwardcabante3@gmail.com'
+const PHONE = '+63 967 824 7618'
+const PHONE_TEL = '+639678247618'
+const WHATSAPP = 'https://wa.me/639678247618'
+const LOCATION = 'Tisa, Cebu City 6000, Philippines'
 const EASE = [0.22, 1, 0.36, 1]
 const AUTOMATIONS_ROUTE = '#/automations'
 
@@ -26,6 +30,7 @@ const NAV = [
   { name: 'Skills', href: '#skills' },
   { name: 'Automation', href: '#automation' },
   { name: 'Experience', href: '#experience' },
+  { name: 'Contact', href: '#contact' },
 ]
 
 const SKYLINE_URL = 'https://skyline-aerial.vercel.app/'
@@ -1613,6 +1618,234 @@ const TwitterIcon = () => (
     <path d="M18.9 2.75h3.3l-7.2 8.23L23.5 21.25h-6.63l-5.2-6.79-5.94 6.79H2.42l7.71-8.81L2 2.75h6.8l4.69 6.2zm-1.16 16.5h1.83L7.35 4.63H5.4z" />
   </svg>
 )
+const WhatsAppIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 1.8c2.17 0 4.2.84 5.74 2.38a8.06 8.06 0 0 1 2.37 5.73c0 4.47-3.64 8.11-8.12 8.11a8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.12.82.83-3.04-.19-.31a8.02 8.02 0 0 1-1.26-4.35c0-4.47 3.64-8.11 8.11-8.11Zm4.71 10.29c-.26-.13-1.52-.75-1.75-.84-.24-.09-.41-.13-.58.13-.17.26-.67.84-.82 1.01-.15.17-.3.19-.56.06-.26-.13-1.09-.4-2.07-1.28-.77-.68-1.28-1.53-1.43-1.79-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.46.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.45-.06-.13-.58-1.4-.8-1.92-.21-.5-.42-.43-.58-.44l-.5-.01c-.17 0-.45.06-.68.32-.24.26-.9.88-.9 2.15 0 1.27.92 2.5 1.05 2.67.13.17 1.81 2.76 4.38 3.87.61.26 1.09.42 1.46.54.61.19 1.17.17 1.61.1.49-.07 1.52-.62 1.73-1.22.21-.6.21-1.11.15-1.22-.06-.11-.24-.17-.5-.3Z" />
+  </svg>
+)
+const PhoneIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" />
+  </svg>
+)
+const CopyIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="9" y="9" width="12" height="12" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+  </svg>
+)
+const CheckIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="m20 6-11 11-5-5" />
+  </svg>
+)
+
+/* ---------- Contact — "Connect with me" section ---------- */
+function Contact() {
+  const [open, setOpen] = useState(false)
+  const [copied, setCopied] = useState(false)
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL)
+    } catch {
+      // Fallback for insecure contexts / older browsers
+      const ta = document.createElement('textarea')
+      ta.value = EMAIL
+      ta.style.position = 'fixed'
+      ta.style.opacity = '0'
+      document.body.appendChild(ta)
+      ta.select()
+      try { document.execCommand('copy') } catch {}
+      document.body.removeChild(ta)
+    }
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2200)
+  }
+
+  return (
+    <section id="contact" className="section contact">
+      <div className="wrap">
+        <Reveal className="contact__head">
+          <span className="eyebrow contact__eyebrow">Contact</span>
+          <h2 className="contact__display" aria-label="Connect with me">
+            <span className="c-solid">Connect</span>
+            <span className="c-ghost">With me.</span>
+          </h2>
+          <p className="contact__lede">
+            Have a project in mind or just want to say hi? Feel free to reach out.
+            I&apos;m always open to discussing new projects, creative ideas, or original visions.
+          </p>
+        </Reveal>
+
+        <Reveal className="contact__cards" delay={0.08}>
+          {/* Left — copy email */}
+          <div className="contact__card contact__card--email">
+            <h3 className="contact__card-title">Do you want to<br />start a <span>project together?</span></h3>
+            <button type="button" className="contact__copy" onClick={copyEmail} aria-live="polite">
+              <span className="contact__copy-ic">{copied ? <CheckIcon /> : <CopyIcon />}</span>
+              {copied ? 'Email Copied!' : 'Copy Email Address'}
+            </button>
+          </div>
+
+          {/* Right — open form */}
+          <button type="button" className="contact__card contact__card--form" onClick={() => setOpen(true)}>
+            <span className="contact__card-ic"><MailIcon /></span>
+            <span className="contact__card-formtitle">Use Contact Form</span>
+            <span className="contact__card-formsub">Send a message directly</span>
+          </button>
+        </Reveal>
+      </div>
+
+      <AnimatePresence>
+        {open && <ContactModal key="contact-modal" onClose={() => setOpen(false)} />}
+      </AnimatePresence>
+    </section>
+  )
+}
+
+/* ---------- Contact modal — "Get in touch with me" ---------- */
+function ContactModal({ onClose }) {
+  const reduce = useReducedMotion()
+  const [form, setForm] = useState({ name: '', email: '', message: '' })
+  const [sent, setSent] = useState(false)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    const onKey = (e) => e.key === 'Escape' && onClose()
+    window.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [onClose])
+
+  const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }))
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    const name = form.name.trim()
+    const email = form.email.trim()
+    const message = form.message.trim()
+    if (!name || !email || !message) {
+      setError('Please fill in your name, email, and message.')
+      return
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError('That email address doesn’t look right.')
+      return
+    }
+    setError('')
+    // Opens the visitor's mail app with everything pre-filled. To send without
+    // leaving the page instead, POST `form` to a serverless /api/contact endpoint.
+    const subject = encodeURIComponent(`Portfolio enquiry from ${name}`)
+    const body = encodeURIComponent(`${message}\n\n— ${name}\n${email}`)
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`
+    setSent(true)
+  }
+
+  return (
+    <motion.div
+      className="cmodal"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Contact me"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.22 }}
+    >
+      <motion.div
+        className="cmodal__panel"
+        onClick={(e) => e.stopPropagation()}
+        initial={reduce ? { opacity: 0 } : { opacity: 0, y: 22, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={reduce ? { opacity: 0 } : { opacity: 0, y: 12, scale: 0.985 }}
+        transition={{ duration: 0.32, ease: EASE }}
+      >
+        <button className="cmodal__close" onClick={onClose} aria-label="Close contact form">✕</button>
+
+        {/* Left — info */}
+        <aside className="cmodal__info">
+          <span className="eyebrow eyebrow--muted">Contact me</span>
+          <h3 className="cmodal__title">Get In Touch<br />With Me</h3>
+          <p className="cmodal__lede">
+            Have a project in mind or just want to say hi? Feel free to reach out.
+            I&apos;m always open to discussing new projects, creative ideas, or original visions.
+          </p>
+
+          <ul className="cmodal__rows">
+            <li className="cmodal__row">
+              <span className="cmodal__row-ic"><PinIcon /></span>
+              <div>
+                <span className="cmodal__row-label">Location</span>
+                <span className="cmodal__row-val">{LOCATION}</span>
+              </div>
+            </li>
+            <li>
+              <a className="cmodal__row cmodal__row-link" href={`tel:${PHONE_TEL}`}>
+                <span className="cmodal__row-ic"><PhoneIcon /></span>
+                <div>
+                  <span className="cmodal__row-label">Phone Number</span>
+                  <span className="cmodal__row-val">{PHONE}</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a className="cmodal__row cmodal__row-link" href={`mailto:${EMAIL}`}>
+                <span className="cmodal__row-ic"><MailIcon /></span>
+                <div>
+                  <span className="cmodal__row-label">Email Address</span>
+                  <span className="cmodal__row-val">{EMAIL}</span>
+                </div>
+              </a>
+            </li>
+          </ul>
+
+          <div className="cmodal__socialbar">
+            <span className="cmodal__social-label">Social:</span>
+            <a className="footer__social" href="https://github.com/Jaimes-Oni" target="_blank" rel="noopener noreferrer" aria-label="Jaimes on GitHub"><GitHubIcon /></a>
+            <a className="footer__social" href="https://www.linkedin.com/in/jaimes-edward-cabante-8aab02338/" target="_blank" rel="noopener noreferrer" aria-label="Jaimes on LinkedIn"><LinkedInIcon /></a>
+            <a className="footer__social" href={WHATSAPP} target="_blank" rel="noopener noreferrer" aria-label="Message Jaimes on WhatsApp"><WhatsAppIcon /></a>
+          </div>
+        </aside>
+
+        {/* Right — form */}
+        <div className="cmodal__formwrap">
+          {sent ? (
+            <div className="cmodal__sent">
+              <span className="cmodal__sent-ic"><CheckIcon /></span>
+              <h4>Your message is ready to send.</h4>
+              <p>
+                Your mail app should have opened with the message pre-filled.
+                Didn&apos;t open? <a href={`mailto:${EMAIL}`}>Email me directly</a>.
+              </p>
+              <button type="button" className="btn btn--ghost" onClick={onClose}>Close</button>
+            </div>
+          ) : (
+            <form className="cmodal__form" onSubmit={onSubmit} noValidate>
+              <label className="cmodal__field">
+                <span>Name</span>
+                <input type="text" value={form.name} onChange={set('name')} placeholder="John Apple" autoComplete="name" />
+              </label>
+              <label className="cmodal__field">
+                <span>Email</span>
+                <input type="email" value={form.email} onChange={set('email')} placeholder="john@apple.com" autoComplete="email" />
+              </label>
+              <label className="cmodal__field">
+                <span>Message</span>
+                <textarea rows={5} value={form.message} onChange={set('message')} placeholder="How can I help you?" />
+              </label>
+              {error && <p className="cmodal__error" role="alert">{error}</p>}
+              <button type="submit" className="cmodal__send"><PlaneIcon /> Send Message</button>
+            </form>
+          )}
+        </div>
+      </motion.div>
+    </motion.div>
+  )
+}
 
 /* ---------- Footer line icons (stroke style, match AboutIcon) ---------- */
 const FOOT_ICON = {
@@ -1758,7 +1991,7 @@ function SiteFooter({ onResume }) {
               <a href="#work"><ChevronIcon />Projects</a>
               <a href="#skills"><ChevronIcon />Skills</a>
               <a href={AUTOMATIONS_ROUTE}><ChevronIcon />Automations</a>
-              <a href={`mailto:${EMAIL}`}><ChevronIcon />Contact</a>
+              <a href="#contact"><ChevronIcon />Contact</a>
             </nav>
           </div>
 
@@ -1911,7 +2144,7 @@ function HomePage() {
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
 
-    const ids = ['about', 'work', 'skills', 'automation', 'experience']
+    const ids = ['about', 'work', 'skills', 'automation', 'experience', 'contact']
     const sections = ids.map((id) => document.getElementById(id)).filter(Boolean)
     let spy
     if ('IntersectionObserver' in window && sections.length) {
@@ -1941,6 +2174,7 @@ function HomePage() {
         <TechStack />
         <Experience />
         <Education />
+        <Contact />
       </main>
 
       <AnimatePresence>

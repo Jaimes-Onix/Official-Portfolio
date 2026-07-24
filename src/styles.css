@@ -3169,3 +3169,298 @@
   .rmodal__actions .btn { width: auto; }
   .rmodal__hint { display: none; }
 }
+
+/* ============================================================
+   Contact — "Connect with me" section + Get-in-touch modal
+   ============================================================ */
+.contact {
+  padding-block: clamp(52px, 7vw, 104px);
+}
+.contact__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+}
+.contact__display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.88;
+  font-size: clamp(38px, 8vw, 98px);
+  margin: 2px 0;
+}
+.contact__display .c-solid { color: var(--ink); }
+.contact__display .c-ghost { color: color-mix(in srgb, var(--ink) 15%, transparent); }
+.contact__lede {
+  max-width: 54ch;
+  font-size: clamp(15px, 1.3vw, 18px);
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.contact__cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(14px, 1.6vw, 20px);
+  margin-top: clamp(28px, 3.5vw, 46px);
+}
+.contact__card {
+  border-radius: var(--r-lg);
+  padding: clamp(24px, 2.4vw, 34px);
+  min-height: clamp(168px, 15vw, 208px);
+  text-align: left;
+}
+/* Left — inverted "copy email" card */
+.contact__card--email {
+  background: var(--ink);
+  color: var(--ground);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+}
+.contact__card-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+  font-size: clamp(21px, 2vw, 30px);
+  color: var(--ground);
+}
+.contact__copy {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1;
+  padding: 15px 24px;
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  background: var(--ground);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
+}
+.contact__copy:hover { background: var(--accent); color: #fff; transform: translateY(-2px); }
+.contact__copy-ic { display: inline-flex; }
+.contact__copy-ic svg { width: 18px; height: 18px; }
+
+/* Right — open form card */
+.contact__card--form {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+.contact__card--form:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  background: color-mix(in srgb, var(--accent) 6%, var(--surface));
+  transform: translateY(-3px);
+}
+.contact__card-ic {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 4%, var(--surface));
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.contact__card-ic svg { width: 22px; height: 22px; }
+.contact__card--form:hover .contact__card-ic {
+  color: var(--accent-ink);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+}
+.contact__card-formtitle {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(18px, 1.5vw, 22px);
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.contact__card-formsub { color: var(--muted); font-size: 13.5px; }
+
+@media (max-width: 720px) {
+  .contact__cards { grid-template-columns: 1fr; }
+}
+
+/* ---------- Contact modal ---------- */
+.cmodal {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  display: grid;
+  place-items: center;
+  padding: clamp(12px, 3vw, 34px);
+  background: rgba(0, 0, 0, 0.72);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.cmodal__panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  width: min(1040px, 100%);
+  max-height: min(92vh, 780px);
+  overflow: auto;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-lg);
+}
+.cmodal__info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: clamp(26px, 3vw, 44px);
+  background: var(--surface-2);
+  border-right: 1px solid var(--line);
+}
+.cmodal__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+  font-size: clamp(30px, 3.4vw, 46px);
+  color: var(--ink);
+  margin: 0;
+}
+.cmodal__lede { color: var(--muted); font-size: 14.5px; line-height: 1.6; max-width: 42ch; }
+.cmodal__rows { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+.cmodal__row { display: flex; align-items: center; gap: 16px; }
+.cmodal__row-link { text-decoration: none; color: inherit; }
+.cmodal__row-ic {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--ink) 3%, var(--surface));
+  color: var(--accent-ink);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.cmodal__row-ic svg { width: 20px; height: 20px; }
+.cmodal__row > div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cmodal__row-label { font-size: 12px; font-weight: 700; letter-spacing: 0.04em; color: var(--ink); }
+.cmodal__row-val { font-size: 14px; color: var(--muted); word-break: break-word; transition: color 0.2s ease; }
+.cmodal__row-link:hover .cmodal__row-ic {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  color: var(--accent-ink);
+}
+.cmodal__row-link:hover .cmodal__row-val { color: var(--ink); }
+.cmodal__socialbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+.cmodal__social-label { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+/* Right side — form */
+.cmodal__formwrap { padding: clamp(26px, 3vw, 44px); display: flex; flex-direction: column; }
+.cmodal__form { display: flex; flex-direction: column; gap: 20px; }
+.cmodal__field { display: flex; flex-direction: column; gap: 9px; }
+.cmodal__field > span {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+}
+.cmodal__field input,
+.cmodal__field textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--ground);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.cmodal__field textarea { resize: vertical; min-height: 120px; line-height: 1.55; }
+.cmodal__field input::placeholder,
+.cmodal__field textarea::placeholder { color: var(--faint); }
+.cmodal__field input:focus,
+.cmodal__field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.cmodal__error { color: var(--accent-ink); font-size: 13.5px; margin: -4px 0 0; }
+.cmodal__send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 15.5px;
+  line-height: 1;
+  padding: 17px 24px;
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  background: var(--ink);
+  color: var(--ground);
+  cursor: pointer;
+  margin-top: 4px;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.cmodal__send:hover { background: var(--accent); color: #fff; transform: translateY(-2px); }
+.cmodal__send svg { width: 18px; height: 18px; }
+
+/* Sent confirmation */
+.cmodal__sent { margin: auto 0; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.cmodal__sent-ic {
+  display: grid; place-items: center; width: 58px; height: 58px; border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--accent) 16%, var(--surface));
+  color: var(--accent-ink); border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--line));
+}
+.cmodal__sent-ic svg { width: 26px; height: 26px; }
+.cmodal__sent h4 { font-family: var(--font-display); font-size: 22px; color: var(--ink); margin: 0; }
+.cmodal__sent p { color: var(--muted); font-size: 14.5px; max-width: 38ch; }
+.cmodal__sent a { color: var(--accent-ink); text-decoration: underline; }
+
+.cmodal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: var(--ink);
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+.cmodal__close:hover { background: var(--surface-2); }
+
+@media (max-width: 800px) {
+  .cmodal__panel { grid-template-columns: 1fr; max-height: 92vh; }
+  .cmodal__info { border-right: none; border-bottom: 1px solid var(--line); }
+}
