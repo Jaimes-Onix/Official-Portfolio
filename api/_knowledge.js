@@ -111,11 +111,12 @@ const EDUCATION = `
 BS in Information Technology (BSIT) — Cebu Institute of Technology – University (2020–2024).
 
 # CERTIFICATES & TRAINING
+- Six official Anthropic (Claude) certifications, all earned in 2025 and each independently
+  verifiable via Anthropic's verification links (shown on the site's certificate cards):
+  Claude 101, Claude Code 101, Claude Cowork, Claude Code in Action,
+  AI Fluency: Framework & Foundations, and Building with the Claude API.
 - "Agents & AI at the Frontier!" — AI Cebu Community (2026).
 - "University Tech Talk" — Flexisource IT (2024).
-- Several Anthropic / Claude certifications, including Claude 101, Claude Code 101,
-  Claude Code in Action, Claude Cowork, Building with the Claude API, and the AI Fluency
-  Framework & Foundations.
 `;
 
 const WEBSITE = `
@@ -141,7 +142,8 @@ const WEBSITE = `
   • Tech Stack — an icon grid grouped into Frontend, Backend & Data, Automation & AI,
     Languages, Deployment & Hosting, and AIGC tools.
   • Experience — a timeline of his two roles at Lifewood Data Technology.
-  • Education — his BSIT degree card plus a certificates grid (each opens in a lightbox).
+  • Education — his BSIT degree card plus a certificates grid (each opens in a lightbox; the
+    Anthropic certs also show a "Verify credential" link to Anthropic's official verification page).
   • Contact — a "Connect with me" section near the bottom of the page. Two cards: a "Copy
     Email Address" button, and a "Use Contact Form" card that opens a "Get In Touch With Me"
     modal with a Name / Email / Message form. Hitting "Send Message" opens the visitor's own
@@ -149,7 +151,8 @@ const WEBSITE = `
     phone, email, and GitHub / LinkedIn / WhatsApp links.
   • Footer — "Let's build something real," the résumé button, menu links, and the
     "Made for Arca.ph" attribution.
-- Nice touches: an intro preloader (an hourglass with splitting panes), a scroll progress
+- Nice touches: an intro preloader (Jaimes's logo badge inside a circular progress ring that
+  fills as the page loads, behind two panes that split apart to reveal the site), a scroll progress
   bar, count-up statistics, a magnetic résumé button, cinematic scroll-reveal animations,
   full reduced-motion support, responsive layout, and this AI chat assistant (the glowing
   amber orb in the corner — that's me).

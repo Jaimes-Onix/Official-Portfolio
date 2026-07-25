@@ -118,19 +118,30 @@ const EXPERIENCE = [
     dates: 'May 2025 – Jun 2026',
     role: 'AI Executive & Project Coordinator',
     desc: 'Built and deployed full-stack AI websites end to end with Claude Code and Vercel. Cut manual work through LLM automation, RAG and n8n, and produced AI-generated media.',
+    tags: ['Claude Code', 'Vercel', 'LLM automation', 'RAG', 'n8n', 'AIGC'],
   },
   {
     company: 'Lifewood Data Technology',
     dates: 'Jan 2025 – Mar 2025',
     role: 'IT Intern',
     desc: 'Built web and game apps applying the SDLC — debugging, testing, and version control on live projects.',
+    tags: ['SDLC', 'Debugging', 'Testing', 'Version control'],
   },
 ]
 
 const CERTS = [
+  { title: 'Claude 101', issuer: 'Anthropic · 2025', src: '/images/certificates/claude-101.png', href: 'https://verify.skilljar.com/c/hr2e7rsp8s9m' },
+  { title: 'Claude Code 101', issuer: 'Anthropic · 2025', src: '/images/certificates/claude-code-101.png', href: 'https://verify.skilljar.com/c/dmg2a6rmchty' },
+  { title: 'Claude Cowork', issuer: 'Anthropic · 2025', src: '/images/certificates/claude-cowork.png', href: 'https://verify.skilljar.com/c/57xucqumt9si' },
+  { title: 'Claude Code in Action', issuer: 'Anthropic · 2025', src: '/images/certificates/claude-code-in-action.png', href: 'https://verify.skilljar.com/c/833so8aur54m' },
+  { title: 'AI Fluency: Framework & Foundations', issuer: 'Anthropic · 2025', src: '/images/certificates/ai-fluency.png', href: 'https://verify.skilljar.com/c/sb5adg6wwphj' },
+  { title: 'Building with the Claude API', issuer: 'Anthropic · 2025', src: '/images/certificates/building-with-claude-api.png', href: 'https://verify.skilljar.com/c/tmkmf42gu8g4' },
   { title: 'Agents & AI at the Frontier!', issuer: 'AI Cebu Community · 2026', img: 'cert-aicebu' },
   { title: 'University Tech Talk', issuer: 'Flexisource IT · 2024', img: 'cert-flexisource' },
 ]
+
+/* certs use either a full `src` (new) or a legacy `img` slug → /images/<slug>.jpg */
+const certSrc = (c) => c.src || `/images/${c.img}.jpg`
 
 const STATS = [
   { to: 5, suffix: '', label: 'Builds shipped' },
@@ -1249,15 +1260,23 @@ function Experience() {
           </div>
         </Reveal>
         <Reveal>
-          <ol className="timeline timeline--center">
+          <ol className="roadmap">
             {EXPERIENCE.map((e, i) => (
-              <li className="tl" key={i}>
-                <span className="tl__dot" aria-hidden="true" />
-                <div className="tl__card">
-                  <span className="tl__dates">{e.dates}</span>
-                  <h3 className="tl__role">{e.role}</h3>
-                  <div className="tl__company">{e.company}</div>
-                  <p className="tl__desc">{e.desc}</p>
+              <li className={`rm${i === 0 ? ' rm--current' : ''}`} key={i}>
+                <span className="rm__marker" aria-hidden="true"><span className="rm__dot" /></span>
+                <div className="rm__card">
+                  <div className="rm__top">
+                    <span className="rm__period">{e.dates}</span>
+                    {i === 0 && <span className="rm__badge">Current</span>}
+                  </div>
+                  <h3 className="rm__role">{e.role}</h3>
+                  <div className="rm__company">{e.company}</div>
+                  <p className="rm__desc">{e.desc}</p>
+                  {e.tags && (
+                    <ul className="rm__tags">
+                      {e.tags.map((t) => <li key={t}>{t}</li>)}
+                    </ul>
+                  )}
                 </div>
               </li>
             ))}
@@ -1312,7 +1331,7 @@ function Education() {
             {CERTS.map((c) => (
               <button className="cert" key={c.title} type="button" onClick={() => setCert(c)}>
                 <div className="cert__media">
-                  <img src={`/images/${c.img}.jpg`} alt={c.title} loading="lazy" />
+                  <img src={certSrc(c)} alt={c.title} loading="lazy" />
                 </div>
                 <div>
                   <span className="cert__title">{c.title}</span>
@@ -1339,16 +1358,26 @@ function Education() {
             transition={{ duration: 0.2 }}
           >
             <button className="lightbox__close" onClick={() => setCert(null)} aria-label="Close">✕</button>
-            <motion.img
-              className="lightbox__img"
-              src={`/images/${cert.img}.jpg`}
-              alt={cert.title}
+            <motion.div
+              className="lightbox__inner"
               onClick={(e) => e.stopPropagation()}
               initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.26, ease: EASE }}
-            />
+            >
+              <img className="lightbox__img" src={certSrc(cert)} alt={cert.title} />
+              {cert.href && (
+                <a
+                  className="lightbox__verify"
+                  href={cert.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Verify credential <span aria-hidden="true">↗</span>
+                </a>
+              )}
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -1657,21 +1686,37 @@ function Contact() {
         </Reveal>
 
         <Reveal className="contact__cards" delay={0.08}>
-          {/* Left — copy email */}
-          <div className="contact__card contact__card--email">
-            <h3 className="contact__card-title">Do you want to<br />start a <span>project together?</span></h3>
-            <button type="button" className="contact__copy" onClick={copyEmail} aria-live="polite">
-              <span className="contact__copy-ic">{copied ? <CheckIcon /> : <CopyIcon />}</span>
-              {copied ? 'Email Copied!' : 'Copy Email Address'}
-            </button>
+          {/* Left — direct / email highlight card */}
+          <div className="contact__panel contact__panel--direct">
+            <span className="contact__status"><i />Available for work</span>
+            <h3 className="contact__panel-title">Let&apos;s build<br />something together.</h3>
+            <div className="contact__emailrow">
+              <span className="contact__emailtxt">{EMAIL}</span>
+              <button type="button" className="contact__copy" onClick={copyEmail} aria-live="polite">
+                <span className="contact__copy-ic">{copied ? <CheckIcon /> : <CopyIcon />}</span>
+                {copied ? 'Copied' : 'Copy'}
+              </button>
+            </div>
+            <span className="contact__meta">Based in Cebu, Philippines · usually replies within a day.</span>
           </div>
 
-          {/* Right — open form */}
-          <button type="button" className="contact__card contact__card--form" onClick={() => setOpen(true)}>
-            <span className="contact__card-ic"><MailIcon /></span>
-            <span className="contact__card-formtitle">Use Contact Form</span>
-            <span className="contact__card-formsub">Send a message directly</span>
-          </button>
+          {/* Right — reach: form CTA + channels */}
+          <div className="contact__panel contact__panel--reach">
+            <button type="button" className="contact__formbtn" onClick={() => setOpen(true)}>
+              <span className="contact__formbtn-ic"><MailIcon /></span>
+              <span className="contact__formbtn-tx">
+                <span className="contact__formbtn-title">Send a message</span>
+                <span className="contact__formbtn-sub">Open the contact form</span>
+              </span>
+              <span className="contact__formbtn-go" aria-hidden="true">→</span>
+            </button>
+            <div className="contact__sep"><span>or find me on</span></div>
+            <div className="contact__socials">
+              <a className="contact__social" href="https://www.linkedin.com/in/jaimes-edward-cabante-8aab02338/" target="_blank" rel="noopener noreferrer" aria-label="Jaimes on LinkedIn"><LinkedInIcon /><span>LinkedIn</span></a>
+              <a className="contact__social" href="https://github.com/Jaimes-Oni" target="_blank" rel="noopener noreferrer" aria-label="Jaimes on GitHub"><GitHubIcon /><span>GitHub</span></a>
+              <a className="contact__social" href={WHATSAPP} target="_blank" rel="noopener noreferrer" aria-label="Message Jaimes on WhatsApp"><WhatsAppIcon /><span>WhatsApp</span></a>
+            </div>
+          </div>
         </Reveal>
       </div>
 
