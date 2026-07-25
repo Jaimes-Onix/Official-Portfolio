@@ -40,12 +40,13 @@ const SECTION_TARGETS = {
   n8n: '#/automations/n8n',
   make: '#/automations/make',
   gohighlevel: '#/automations/ghl', ghl: '#/automations/ghl', highlevel: '#/automations/ghl',
-  resume: '.footer', cv: '.footer', download: '.footer', footer: '.footer', contact: '.footer',
+  resume: '.footer', cv: '.footer', download: '.footer', footer: '.footer',
+  contact: 'contact', reach: 'contact', email: 'contact', hire: 'contact', message: 'contact',
 }
 /* friendly button labels keyed by resolved target */
 const TARGET_LABELS = {
   top: 'Top', about: 'About', work: 'Work', skills: 'Skills',
-  stack: 'Tech Stack', experience: 'Experience', education: 'Education',
+  stack: 'Tech Stack', experience: 'Experience', education: 'Education', contact: 'Contact',
   '#/automations': 'Automations',
   '#/automations/n8n': 'n8n automations',
   '#/automations/make': 'Make automations',
