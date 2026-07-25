@@ -1248,39 +1248,126 @@ function TechStack() {
 }
 
 /* ---------- Experience + Education ---------- */
-/* ---------- Experience (timeline) ---------- */
+/* Light-trail "road" behind the intro. Glow comes from layered translucent strokes
+   (no SVG blur filter → nothing recomputes per frame); only thin sharp streaks animate. */
+const ROAD_PATHS = [
+  'M 40 360 C 150 300 120 240 215 196 S 240 150 232 122',
+  'M 132 360 C 202 300 176 246 233 199 S 251 152 240 124',
+  'M -18 352 C 112 292 96 236 206 193 S 239 150 228 120',
+]
+const RoadTrails = () => (
+  <svg className="road-svg" viewBox="0 0 420 360" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs>
+      <radialGradient id="rd-horizon" cx="0.56" cy="0.34" r="0.5">
+        <stop offset="0" stopColor="#ff8a3d" stopOpacity="0.5" />
+        <stop offset="1" stopColor="#ff8a3d" stopOpacity="0" />
+      </radialGradient>
+      <linearGradient id="rd-trail" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0" stopColor="#ff7a2a" stopOpacity="0.04" />
+        <stop offset="0.45" stopColor="#ff8a3d" stopOpacity="0.9" />
+        <stop offset="1" stopColor="#ffd9b0" stopOpacity="0" />
+      </linearGradient>
+    </defs>
+    <rect x="0" y="0" width="420" height="360" fill="url(#rd-horizon)" />
+    {/* soft halo: wide, faint, static */}
+    <g className="road-halo" fill="none" stroke="url(#rd-trail)" strokeLinecap="round">
+      <path d={ROAD_PATHS[0]} strokeWidth="12" />
+      <path d={ROAD_PATHS[1]} strokeWidth="9" />
+    </g>
+    {/* crisp moving streaks */}
+    <g fill="none" stroke="url(#rd-trail)" strokeLinecap="round">
+      <path className="road-trail road-trail--1" d={ROAD_PATHS[0]} strokeWidth="4" />
+      <path className="road-trail road-trail--2" d={ROAD_PATHS[1]} strokeWidth="3" />
+      <path className="road-trail road-trail--3" d={ROAD_PATHS[2]} strokeWidth="2.5" />
+    </g>
+  </svg>
+)
+
+const PILLARS = [
+  { icon: 'build', title: 'Build', text: 'End-to-end solutions that deliver results.' },
+  { icon: 'automate', title: 'Automate', text: 'Streamlining workflows with smart automation.' },
+  { icon: 'innovate', title: 'Innovate', text: 'Leveraging AI to create better user experiences.' },
+]
+const PILLAR_ICON = {
+  build: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+      <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.9 12.9 0 0 1 22 2c0 2.72-.78 7.5-6 11a22 22 0 0 1-4 2z" />
+      <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+    </svg>
+  ),
+  automate: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="3.2" />
+      <path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" />
+    </svg>
+  ),
+  innovate: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 20V11M10 20V4M16 20v-6M4 20h14" />
+    </svg>
+  ),
+}
+
+/* ---------- Experience (roadmap) ---------- */
 function Experience() {
+  const roadRef = useRef(null)
+  useEffect(() => {
+    const el = roadRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') return
+    // pause the road animation whenever the section is off-screen (saves CPU/battery everywhere)
+    const io = new IntersectionObserver(
+      ([entry]) => el.style.setProperty('--road-play', entry.isIntersecting ? 'running' : 'paused'),
+      { rootMargin: '150px' },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
   return (
-    <section id="experience" className="section exp--center">
+    <section id="experience" className="section exp2">
       <div className="wrap">
-        <Reveal>
-          <div className="sec-head sec-head--center">
-            <span className="eyebrow">Experience</span>
-            <h2 className="h2 sec-head__title">Where I&apos;ve worked.</h2>
-          </div>
-        </Reveal>
-        <Reveal>
-          <ol className="roadmap">
-            {EXPERIENCE.map((e, i) => (
-              <li className={`rm${i === 0 ? ' rm--current' : ''}`} key={i}>
-                <span className="rm__marker" aria-hidden="true"><span className="rm__dot" /></span>
-                <div className="rm__card">
-                  <div className="rm__top">
-                    <span className="rm__period">{e.dates}</span>
-                    {i === 0 && <span className="rm__badge">Current</span>}
+        <div className="exp2__grid">
+          {/* Left — intro over an animated light-trail road */}
+          <Reveal className="exp2__intro">
+            <div className="exp2__road" ref={roadRef}><RoadTrails /></div>
+            <div className="exp2__introtx">
+              <span className="eyebrow">Experience</span>
+              <h2 className="exp2__title">Where I&apos;ve <span className="accent">worked.</span></h2>
+              <p className="exp2__lede">A journey of building, solving problems, and delivering impact.</p>
+            </div>
+          </Reveal>
+
+          {/* Right — numbered milestones */}
+          <Reveal className="exp2__list" delay={0.08}>
+            <ol className="ms-list">
+              {EXPERIENCE.map((e, i) => (
+                <li className={`ms${i === 0 ? ' ms--current' : ''}`} key={i}>
+                  <div className="ms__marker" aria-hidden="true">
+                    <span className="ms__num">{String(i + 1).padStart(2, '0')}</span>
                   </div>
-                  <h3 className="rm__role">{e.role}</h3>
-                  <div className="rm__company">{e.company}</div>
-                  <p className="rm__desc">{e.desc}</p>
-                  {e.tags && (
-                    <ul className="rm__tags">
-                      {e.tags.map((t) => <li key={t}>{t}</li>)}
-                    </ul>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ol>
+                  <div className="ms__card">
+                    <span className="ms__period">{e.dates}</span>
+                    <h3 className="ms__role">{e.role}</h3>
+                    <div className="ms__company">{e.company}</div>
+                    <p className="ms__desc">{e.desc}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </Reveal>
+        </div>
+
+        {/* Bottom — pillars */}
+        <Reveal className="exp2__pillars" delay={0.12}>
+          {PILLARS.map((p) => (
+            <div className="pillar" key={p.title}>
+              <span className="pillar__ic">{PILLAR_ICON[p.icon]}</span>
+              <div className="pillar__tx">
+                <span className="pillar__title">{p.title}</span>
+                <span className="pillar__text">{p.text}</span>
+              </div>
+            </div>
+          ))}
         </Reveal>
       </div>
     </section>
