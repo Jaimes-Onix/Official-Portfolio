@@ -13,7 +13,7 @@ import {
 import STACK_SVG from './stack-icons.json'
 import ChatBot from './ChatBot.jsx'
 
-const RESUME = '/resume.pdf'
+const RESUME = '/resume/resume.pdf'
 const RESUME_FILENAME = 'Jaimes-Cabante-Resume.pdf'
 const EMAIL = 'jaimesedwardcabante3@gmail.com'
 const PHONE = '+63 967 824 7618'
