@@ -1887,6 +1887,7 @@ function ContactModal({ onClose }) {
   const reduce = useReducedMotion()
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
 
   useEffect(() => {
@@ -1901,7 +1902,7 @@ function ContactModal({ onClose }) {
 
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }))
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
     const name = form.name.trim()
     const email = form.email.trim()
@@ -1915,12 +1916,22 @@ function ContactModal({ onClose }) {
       return
     }
     setError('')
-    // Opens the visitor's mail app with everything pre-filled. To send without
-    // leaving the page instead, POST `form` to a serverless /api/contact endpoint.
-    const subject = encodeURIComponent(`Portfolio enquiry from ${name}`)
-    const body = encodeURIComponent(`${message}\n\n— ${name}\n${email}`)
-    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`
-    setSent(true)
+    setSending(true)
+    // Sends the message in-page via the /api/contact serverless function (Resend).
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(data.error || 'Message failed to send.')
+      setSent(true)
+    } catch (err) {
+      setError(err.message || 'Couldn’t send. Please email me directly for now.')
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -1995,10 +2006,10 @@ function ContactModal({ onClose }) {
           {sent ? (
             <div className="cmodal__sent">
               <span className="cmodal__sent-ic"><CheckIcon /></span>
-              <h4>Your message is ready to send.</h4>
+              <h4>Message sent — thank you!</h4>
               <p>
-                Your mail app should have opened with the message pre-filled.
-                Didn&apos;t open? <a href={`mailto:${EMAIL}`}>Email me directly</a>.
+                Thanks for reaching out, {form.name.trim().split(' ')[0] || 'there'} — I&apos;ll get back to you soon.
+                Prefer email? <a href={`mailto:${EMAIL}`}>Reach me directly</a>.
               </p>
               <button type="button" className="btn btn--ghost" onClick={onClose}>Close</button>
             </div>
@@ -2017,7 +2028,9 @@ function ContactModal({ onClose }) {
                 <textarea rows={5} value={form.message} onChange={set('message')} placeholder="How can I help you?" />
               </label>
               {error && <p className="cmodal__error" role="alert">{error}</p>}
-              <button type="submit" className="cmodal__send"><PlaneIcon /> Send Message</button>
+              <button type="submit" className="cmodal__send" disabled={sending}>
+                <PlaneIcon /> {sending ? 'Sending…' : 'Send Message'}
+              </button>
             </form>
           )}
         </div>
