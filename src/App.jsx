@@ -37,6 +37,23 @@ const SKYLINE_URL = 'https://skyline-aerial.vercel.app/'
 
 const PROJECTS = [
   {
+    num: '00',
+    title: 'Meridian Family Health',
+    category: 'Family Health Clinic · Booking',
+    year: '2026',
+    tagline: 'Primary care that runs on time',
+    desc: 'A family health clinic site with live appointment booking: choose your visit length, keep the same clinician, and get results back within three working days.',
+    tags: ['Next.js', 'Claude Code', 'Vercel'],
+    highlights: [
+      'Live appointment booking with real-time open, one-left, and taken slots',
+      'Choose your visit length and see the same clinician each time',
+      'Built with Next.js and deployed on Vercel',
+    ],
+    href: 'https://heatlhcare.vercel.app',
+    img: 'w-healthcare',
+    alt: 'Meridian Family Health clinic site hero',
+  },
+  {
     num: '01',
     title: 'Skyline Aerial',
     category: 'Product Site · Design System',
@@ -692,7 +709,8 @@ function About({ theme, onResume }) {
             <p className="about2__lede">
               I&apos;m Jaimes Edward Cabante, an <span className="about2__hl">Automation &amp; Website
               Developer</span>. I build fast, modern websites and automate the busywork behind them,
-              so the work runs itself.
+              so the work runs itself. <span className="about2__hl">Claude Code</span> and other
+              LLMs are at the center of everything I build.
             </p>
 
             <hr className="about2__rule" />
