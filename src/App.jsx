@@ -419,7 +419,7 @@ function TopBar({ active, theme, onToggleTheme }) {
 const CINE = [0.16, 1, 0.3, 1]
 
 /* Typewriter that loops through roles */
-const HERO_ROLES = ['Automation', 'Front-End Developer', 'Back-End Developer']
+const HERO_ROLES = ['AI Engineer', 'Automation', 'Front-End Developer', 'Back-End Developer']
 function Typewriter({ start = true }) {
   const reduce = useReducedMotion()
   const [i, setI] = useState(0)
@@ -554,7 +554,7 @@ function Hero({ theme, start = true }) {
           <motion.span aria-hidden="true" {...letter(5)}>O</motion.span><motion.span aria-hidden="true" {...letter(6)}>L</motion.span><motion.span aria-hidden="true" {...letter(7)}>I</motion.span><motion.span aria-hidden="true" {...letter(8)}>O</motion.span>
         </h1>
 
-        <motion.span className="hmask__corner hmask__role" {...fade(1.0)} aria-label="Automation, Front End Developer, Back End Developer">
+        <motion.span className="hmask__corner hmask__role" {...fade(1.0)} aria-label="AI Engineer, Automation, Front End Developer, Back End Developer">
           <Typewriter start={play} />
         </motion.span>
         <motion.a
